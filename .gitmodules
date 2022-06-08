@@ -1,0 +1,3 @@
+[submodule "scripts/ITB-LApi"]
+	path = scripts/ITB-LApi
+	url = https://github.com/Lemonymous/ITB-LApi.git
