@@ -1,5 +1,6 @@
 local function init(self)
   require(self.scriptPath.."science_confuse_change")
+  require(self.scriptPath.."ITB-LApi/LApi")
 end
 
 local function load(self, options, version)
