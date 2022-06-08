@@ -1,14 +1,14 @@
 function Science_Confuse:GetSkillEffect(p1,p2) -- Override
-	local ret = SkillEffect()
+  local ret = SkillEffect()
   -- Get the direction and path the Confuse Shot projectile goes in
-	local direction = GetDirection(p2 - p1)
-	local target = GetProjectileEnd(p1,p2,PATH_PROJECTILE)
+  local direction = GetDirection(p2 - p1)
+  local target = GetProjectileEnd(p1,p2,PATH_PROJECTILE)
   
   local doMagic = false -- Half (90 degrees) flip
-	
+  
   -- Setup the "damage"
-	local damage = SpaceDamage(target, self.Damage)
-	if self.Flip == 1 then
+  local damage = SpaceDamage(target, self.Damage)
+  if self.Flip == 1 then
     if Board:IsPawnSpace(target) then  -- Check if target is a pawn
       local pawn = Board:GetPawn(target) 
       if pawn:GetType() == "FireflyBoss" then
@@ -46,5 +46,5 @@ function Science_Confuse:GetSkillEffect(p1,p2) -- Override
 
   ret:AddProjectile(damage, self.ProjectileArt, NO_DELAY)
 
-	return ret
+  return ret
 end
