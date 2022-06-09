@@ -21,25 +21,27 @@ function Science_Confuse:GetSkillEffect(p1,p2) -- Override
 
   if doMagic then
     -- The magic
-    ret:AddScript([[
-    local cutils = _G["cutils-dll"]
-    local pawn = Board:GetPawn(]]..target:GetString()..[[)
-    local pawnTarget = Point(
-        cutils.Pawn.GetQueuedTargetX(pawn),
-        cutils.Pawn.GetQueuedTargetY(pawn)
-    )
-    local loc = pawn:GetSpace()
-    local dir = (GetDirection(pawnTarget - loc) + 1) % 4
-    local dist = loc:Manhattan(pawnTarget)
+    local dirHalfFlip = SpaceDamage(target, self.Damage)
+    dirHalfFlip.sScript = [[
+      local cutils = _G["cutils-dll"]
+      local pawn = Board:GetPawn(]]..target:GetString()..[[)
+      local pawnTarget = Point(
+          cutils.Pawn.GetQueuedTargetX(pawn),
+          cutils.Pawn.GetQueuedTargetY(pawn)
+      )
+      local loc = pawn:GetSpace()
+      local dir = (GetDirection(pawnTarget - loc) + 1) % 4
+      local dist = loc:Manhattan(pawnTarget)
 
-    pawnTarget = loc + DIR_VECTORS[dir] * dist
+      pawnTarget = loc + DIR_VECTORS[dir] * dist
 
-    cutils.Pawn.SetQueuedTargetX(pawn, pawnTarget.x)
-    cutils.Pawn.SetQueuedTargetY(pawn, pawnTarget.y)
-    ]])
+      cutils.Pawn.SetQueuedTargetX(pawn, pawnTarget.x)
+      cutils.Pawn.SetQueuedTargetY(pawn, pawnTarget.y)
+    ]]
+    ret:AddProjectile(dirHalfFlip, self.ProjectileArt, NO_DELAY)
+  else
+    ret:AddProjectile(damage, self.ProjectileArt, NO_DELAY)
   end
-
-  ret:AddProjectile(damage, self.ProjectileArt, NO_DELAY)
 
   return ret
 end
