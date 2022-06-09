@@ -21,8 +21,7 @@ function Science_Confuse:GetSkillEffect(p1,p2) -- Override
 
   if doMagic then
     -- The magic
-    local dirHalfFlip = SpaceDamage(target, self.Damage)
-    dirHalfFlip.sScript = [[
+    damage.sScript = [[
       local cutils = _G["cutils-dll"]
       local pawn = Board:GetPawn(]]..target:GetString()..[[)
       local pawnTarget = Point(
@@ -38,10 +37,9 @@ function Science_Confuse:GetSkillEffect(p1,p2) -- Override
       cutils.Pawn.SetQueuedTargetX(pawn, pawnTarget.x)
       cutils.Pawn.SetQueuedTargetY(pawn, pawnTarget.y)
     ]]
-    ret:AddProjectile(dirHalfFlip, self.ProjectileArt, NO_DELAY)
-  else
-    ret:AddProjectile(damage, self.ProjectileArt, NO_DELAY)
   end
+
+  ret:AddProjectile(damage, self.ProjectileArt, NO_DELAY)
 
   return ret
 end
