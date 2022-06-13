@@ -1,6 +1,9 @@
 local function init(self)
   require(self.scriptPath.."science_confuse_change")
   require(self.scriptPath.."ITB-LApi/LApi")
+
+  modApi:copyAsset("img/combat/icons/icon_swap_glow.png", "img/combat/icons/thenitrex_icon_swap_glow.png")
+  Location["combat/icons/thenitrex_icon_swap_glow.png"] = Point(-10,9)
 end
 
 local function load(self, options, version)
