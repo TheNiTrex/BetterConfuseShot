@@ -20,6 +20,7 @@ function Science_Confuse:GetSkillEffect(p1,p2) -- Override
     end
 
     if doMagic then
+      damage = SpaceDamage(target, self.Damage, 5) -- Yellow tile outline
       damage.sImageMark = "combat/icons/thenitrex_icon_swap_glow.png"
       -- The magic
       damage.sScript = [[
